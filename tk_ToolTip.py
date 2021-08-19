@@ -19,13 +19,13 @@ class CreateToolTip(object):
         x += self.widget.winfo_rootx() + 25
         y += self.widget.winfo_rooty() + 20
 
-        # creates a toplevel window
+        # Creates a toplevel window
         self.tw = tk.Toplevel(self.widget)
 
         # Leaves only the label and removes the app window
         self.tw.wm_overrideredirect(True)
         self.tw.wm_geometry("+%d+%d" % (x, y))
-        
+
         label = tk.Label(self.tw, text=self.text, justify='left', foreground="white",
                        background='dimgray', relief='solid', borderwidth=0,
                        font=("Helvetica", "9", "bold"))
