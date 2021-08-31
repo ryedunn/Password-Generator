@@ -4,14 +4,93 @@ from random import SystemRandom
 import string
 from re import sub
 from tk_ToolTip import CreateToolTip
-import FileManager
+import Login
 
 
-class PassGen(tk.Frame):
-    def __init__(self, master):
-        self.master = master
-        self.frame = tk.Frame(master)
-        self.frame.pack()
+class MenuBar(tk.Menu):
+    def __init__(self, parent):
+        tk.Menu.__init__(self, parent)
+        app = parent
+
+        # File Section of Menubar
+        fileMenu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="File", underline=0, menu=fileMenu)
+
+        fileMenu.add_command(label="User Login", command=lambda: Login.main(self))
+        fileMenu.add_command(label="New User")
+        openFileMenu = tk.Menu(self)
+        openFileMenu.add_command(label="Recent")
+        openFileMenu.add_command(label="Browse")
+        fileMenu.add_cascade(label="Open User File", menu=openFileMenu)
+        fileMenu.add_command(label="Add Site")
+        fileMenu.add_command(label="Exit", underline=1, command=app.custom_quit)
+
+        # Edit Section of Menubar
+        editMenu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Edit", menu=editMenu)
+        editMenu.add_command(label="Clear", command=app.clear_pass)
+        editMenu.add_cascade(label="Redo")
+        editMenu.add_command(
+            label="Cut",
+            command=lambda: [app.copy_pass(), app.clear_pass()],
+        )
+        editMenu.add_command(label="Copy", command=app.copy_pass)
+
+        # Tools Section of Menubar
+        toolsMenu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Tools", menu=toolsMenu)
+        toolsMenu.add_command(label="Password Strength")
+        toolsMenu.add_cascade(label="Placeholder")
+
+        runMenu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Run", menu=runMenu)
+        runMenu.add_command(label="Placeholder")
+
+        # Options Section of Menubar
+        optionsMenu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Options", menu=optionsMenu)
+
+        # Pre-Set Option SubMenu
+        psoMenu = tk.Menu(self)
+        psoMenu.add_command(
+            label="Easy to Say",
+            command=lambda: [app.var_rbtn.set(1), app.setCheckbutton(1)],
+        )
+        psoMenu.add_command(
+            label="Easy to Read",
+            command=lambda: [app.var_rbtn.set(2), app.setCheckbutton(2)],
+        )
+        psoMenu.add_command(
+            label="Unrestricted",
+            command=lambda: [app.var_rbtn.set(3), app.setCheckbutton(3)],
+        )
+        optionsMenu.add_cascade(label="Pre-Set Options", menu=psoMenu)
+        optionsMenu.add_command(label="Placeholder")
+
+        # Window Section of Menubar
+        windowMenu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Window", menu=windowMenu)
+        windowMenu.add_command(label="Resize window")
+        windowMenu.add_command(label="Large window")
+
+        # Help Section of Menubar
+        helpMenu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Help", menu=helpMenu)
+        helpMenu.add_command(label="About PassGen")
+        helpMenu.add_cascade(label="PassGen Help")
+        helpMenu.add_command(label="Contact")
+
+
+class MainApplication(tk.Frame):
+    def __init__(self, parent, *args, **kwargs):
+        tk.Frame.__init__(self, parent, *args, **kwargs)
+        self.parent = parent
+
+        parent.title("Password Generator")
+        parent.geometry("400x320")
+
+        menubar = MenuBar(self)
+        parent.config(menu=menubar)
 
         # Checkbox Variables that determines whats included in the password
         self.varNumbers = tk.IntVar(value=1)
@@ -41,65 +120,9 @@ class PassGen(tk.Frame):
             (self.varSymbols, "Symbols"),
         ]
 
-        tk.Frame.__init__(self, master)
+        # Create Widgets for the Form
+        tk.Frame.__init__(self)
         self.pack()
-        self.createWidgets()
-
-    def createWidgets(self):
-
-        menu1 = tk.Menu(root)
-        root.configure(menu=menu1)
-
-        submenu1 = tk.Menu(menu1)
-        menu1.add_cascade(label="File", menu=submenu1)
-
-        submenu1.add_command(label="New User")
-        sub1menu = tk.Menu(menu1)
-        sub1menu.add_command(label="Recent")
-        sub1menu.add_command(label="Browse")
-        submenu1.add_cascade(label="Open User File", menu=sub1menu)
-        submenu1.add_command(label="Add Site")
-        submenu1.add_command(label="Quit", command=self.custom_quit)
-
-        # adding command to menu elements
-        submenu2 = tk.Menu(menu1)
-        menu1.add_cascade(label="Edit", menu=submenu2)
-        submenu2.add_command(label="Clear", command=self.clear_pass)
-        submenu2.add_cascade(label="Redo")
-        submenu2.add_command(label="Cut", command=lambda: [self.copy_pass(), self.clear_pass()])
-        submenu2.add_command(label="Copy", command=self.copy_pass)
-
-        submenu3 = tk.Menu(menu1)
-        menu1.add_cascade(label="Tools", menu=submenu3)
-        submenu3.add_command(label="Password Strength")
-        submenu3.add_cascade(label="Placeholder")
-
-        submenu4 = tk.Menu(menu1)
-        menu1.add_cascade(label="Run", menu=submenu4)
-        submenu4.add_command(label="Placeholder")
-
-        submenu5 = tk.Menu(menu1)
-        menu1.add_cascade(label="Options", menu=submenu5)
-        sub5menu = tk.Menu(menu1)
-        sub5menu.add_command(label="Easy to Say", command=lambda: [self.var_rbtn.set(1),
-                             self.setCheckbutton(1)])
-        sub5menu.add_command(label="Easy to Read", command=lambda: [self.var_rbtn.set(2),
-                             self.setCheckbutton(2)])
-        sub5menu.add_command(label="Unrestricted", command=lambda: [self.var_rbtn.set(3),
-                             self.setCheckbutton(3)])
-        submenu5.add_cascade(label="Pre-Set Options", menu=sub5menu)
-        submenu5.add_command(label="Placeholder")
-
-        submenu6 = tk.Menu(menu1)
-        menu1.add_cascade(label="Window", menu=submenu6)
-        submenu6.add_command(label="Resize window")
-        submenu6.add_command(label="Large window")
-
-        submenu7 = tk.Menu(menu1)
-        menu1.add_cascade(label="Help", menu=submenu7)
-        submenu7.add_command(label="About PassGen")
-        submenu7.add_cascade(label="PassGen Help")
-        submenu7.add_command(label="Contact")
 
         # Entry Box for our returned password
         self.entry_Pass = tk.Entry(
@@ -238,7 +261,7 @@ class PassGen(tk.Frame):
         self.btn_Copy = tk.Button(
             self.frame_btn,
             text="Save to\nPassword DB",
-            command=self.saveFile,
+            command=lambda: self.saveFile(),
             width=10,
             bd=3,
         ).grid(
@@ -294,7 +317,10 @@ class PassGen(tk.Frame):
 
     # Send to Login page to Encrypt and Save
     def saveFile(self):
-        FileManager.FileStuff.fileStuff(self, self.entry_Pass.get())
+        # If user is logged in, save file, if not send to login screen
+        # FileManager.FileStuff.fileStuff(self, self.entry_Pass.get())
+        # Login.Login.form(self)
+        Login.main(self)
 
     # When a pre-set option is selected, set checkboxes accordingly
     def setCheckbutton(self, value):
@@ -317,15 +343,14 @@ class PassGen(tk.Frame):
         self.entry_Pass.delete(0, tk.END)
 
     def custom_quit(self):
-        answer = messagebox.askokcancel("Exit Program", "Are you sure you want to exit?")
+        answer = messagebox.askokcancel(
+            "Exit Program", "Are you sure you want to exit?"
+        )
         if answer:
             quit()
 
 
 if __name__ == "__main__":
-    # Main window
     root = tk.Tk()
-    root.title("Password Generator")
-    root.geometry("400x320")
-    app = PassGen(root)
-    root.mainloop()
+    app = MainApplication(root)
+    app.mainloop()
