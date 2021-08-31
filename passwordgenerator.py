@@ -13,72 +13,72 @@ class MenuBar(tk.Menu):
         app = parent
 
         # File Section of Menubar
-        fileMenu = tk.Menu(self, tearoff=False)
-        self.add_cascade(label="File", underline=0, menu=fileMenu)
+        file_menu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="File", underline=0, menu=file_menu)
 
-        fileMenu.add_command(label="User Login", command=lambda: Login.main(self))
-        fileMenu.add_command(label="New User")
-        openFileMenu = tk.Menu(self)
-        openFileMenu.add_command(label="Recent")
-        openFileMenu.add_command(label="Browse")
-        fileMenu.add_cascade(label="Open User File", menu=openFileMenu)
-        fileMenu.add_command(label="Add Site")
-        fileMenu.add_command(label="Exit", underline=1, command=app.custom_quit)
+        file_menu.add_command(label="User Login", command=lambda: Login.main(self))
+        file_menu.add_command(label="New User")
+        open_file_menu = tk.Menu(self)
+        open_file_menu.add_command(label="Recent")
+        open_file_menu.add_command(label="Browse")
+        file_menu.add_cascade(label="Open User File", menu=open_file_menu)
+        file_menu.add_command(label="Add Site")
+        file_menu.add_command(label="Exit", underline=1, command=app.custom_quit)
 
         # Edit Section of Menubar
-        editMenu = tk.Menu(self, tearoff=False)
-        self.add_cascade(label="Edit", menu=editMenu)
-        editMenu.add_command(label="Clear", command=app.clear_pass)
-        editMenu.add_cascade(label="Redo")
-        editMenu.add_command(
+        edit_menu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Edit", menu=edit_menu)
+        edit_menu.add_command(label="Clear", command=app.clear_pass)
+        edit_menu.add_cascade(label="Redo")
+        edit_menu.add_command(
             label="Cut",
             command=lambda: [app.copy_pass(), app.clear_pass()],
         )
-        editMenu.add_command(label="Copy", command=app.copy_pass)
+        edit_menu.add_command(label="Copy", command=app.copy_pass)
 
         # Tools Section of Menubar
-        toolsMenu = tk.Menu(self, tearoff=False)
-        self.add_cascade(label="Tools", menu=toolsMenu)
-        toolsMenu.add_command(label="Password Strength")
-        toolsMenu.add_cascade(label="Placeholder")
+        tools_menu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Tools", menu=tools_menu)
+        tools_menu.add_command(label="Password Strength")
+        tools_menu.add_cascade(label="Placeholder")
 
-        runMenu = tk.Menu(self, tearoff=False)
-        self.add_cascade(label="Run", menu=runMenu)
-        runMenu.add_command(label="Placeholder")
+        run_menu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Run", menu=run_menu)
+        run_menu.add_command(label="Placeholder")
 
         # Options Section of Menubar
-        optionsMenu = tk.Menu(self, tearoff=False)
-        self.add_cascade(label="Options", menu=optionsMenu)
+        options_menu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Options", menu=options_menu)
 
         # Pre-Set Option SubMenu
-        psoMenu = tk.Menu(self)
-        psoMenu.add_command(
+        pso_menu = tk.Menu(self)
+        pso_menu.add_command(
             label="Easy to Say",
             command=lambda: [app.var_rbtn.set(1), app.setCheckbutton(1)],
         )
-        psoMenu.add_command(
+        pso_menu.add_command(
             label="Easy to Read",
             command=lambda: [app.var_rbtn.set(2), app.setCheckbutton(2)],
         )
-        psoMenu.add_command(
+        pso_menu.add_command(
             label="Unrestricted",
             command=lambda: [app.var_rbtn.set(3), app.setCheckbutton(3)],
         )
-        optionsMenu.add_cascade(label="Pre-Set Options", menu=psoMenu)
-        optionsMenu.add_command(label="Placeholder")
+        options_menu.add_cascade(label="Pre-Set Options", menu=pso_menu)
+        options_menu.add_command(label="Placeholder")
 
         # Window Section of Menubar
-        windowMenu = tk.Menu(self, tearoff=False)
-        self.add_cascade(label="Window", menu=windowMenu)
-        windowMenu.add_command(label="Resize window")
-        windowMenu.add_command(label="Large window")
+        window_menu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Window", menu=window_menu)
+        window_menu.add_command(label="Resize window")
+        window_menu.add_command(label="Large window")
 
         # Help Section of Menubar
-        helpMenu = tk.Menu(self, tearoff=False)
-        self.add_cascade(label="Help", menu=helpMenu)
-        helpMenu.add_command(label="About PassGen")
-        helpMenu.add_cascade(label="PassGen Help")
-        helpMenu.add_command(label="Contact")
+        help_menu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Help", menu=help_menu)
+        help_menu.add_command(label="About PassGen")
+        help_menu.add_cascade(label="PassGen Help")
+        help_menu.add_command(label="Contact")
 
 
 class MainApplication(tk.Frame):
@@ -93,10 +93,10 @@ class MainApplication(tk.Frame):
         parent.config(menu=menubar)
 
         # Checkbox Variables that determines whats included in the password
-        self.varNumbers = tk.IntVar(value=1)
-        self.varLowercase = tk.IntVar(value=1)
-        self.varUppercase = tk.IntVar(value=1)
-        self.varSymbols = tk.IntVar(value=1)
+        self.var_numbers = tk.IntVar(value=1)
+        self.var_lowercase = tk.IntVar(value=1)
+        self.var_uppercase = tk.IntVar(value=1)
+        self.var_symbols = tk.IntVar(value=1)
 
         # Variable for radio button and set default
         self.var_rbtn = tk.IntVar()
@@ -114,10 +114,10 @@ class MainApplication(tk.Frame):
         self.dynamic_rbuttons = []
 
         self.vars_cbox = [
-            (self.varUppercase, "Uppercase"),
-            (self.varLowercase, "Lowercase"),
-            (self.varNumbers, "Numbers"),
-            (self.varSymbols, "Symbols"),
+            (self.var_uppercase, "Uppercase"),
+            (self.var_lowercase, "Lowercase"),
+            (self.var_numbers, "Numbers"),
+            (self.var_symbols, "Symbols"),
         ]
 
         # Create Widgets for the Form
@@ -125,7 +125,7 @@ class MainApplication(tk.Frame):
         self.pack()
 
         # Entry Box for our returned password
-        self.entry_Pass = tk.Entry(
+        self.entry_pass = tk.Entry(
             self,
             text="",
             font=("Helvetica", 20),
@@ -134,15 +134,15 @@ class MainApplication(tk.Frame):
             justify="center",
             highlightthickness=0,
         )
-        self.entry_Pass.pack(pady=10)
+        self.entry_pass.pack(pady=10)
 
         # Frame for Options
-        self.frame_Options = tk.Frame(self)
-        self.frame_Options.pack(pady=10)
+        self.frame_options = tk.Frame(self)
+        self.frame_options.pack(pady=10)
 
         # Character Types Frame
         self.frame_ct = tk.LabelFrame(
-            self.frame_Options,
+            self.frame_options,
             text="Character Types",
         )
         self.frame_ct.grid(
@@ -155,11 +155,11 @@ class MainApplication(tk.Frame):
 
         # Create checkboxes dynamically
         # 0 Upper - 1 Lower - 2 Number - 3 Symbol
-        for varType, cbox_label in self.vars_cbox:
+        for var_type, cbox_label in self.vars_cbox:
             self.checkbutton = tk.Checkbutton(
                 self.frame_ct,
                 text=cbox_label,
-                variable=varType,
+                variable=var_type,
                 pady=5,
                 padx=5,
             )
@@ -168,7 +168,7 @@ class MainApplication(tk.Frame):
 
         # Password Length Frame
         self.frame_pl = tk.LabelFrame(
-            self.frame_Options,
+            self.frame_options,
             text="Password Length",
         )
         self.frame_pl.grid(
@@ -190,7 +190,7 @@ class MainApplication(tk.Frame):
 
         # Pre-set Option Frame
         self.frame_pso = tk.LabelFrame(
-            self.frame_Options,
+            self.frame_options,
             text="Pre-set Options",
         )
         self.frame_pso.grid(
@@ -232,10 +232,10 @@ class MainApplication(tk.Frame):
         self.frame_btn.pack(pady=5)
 
         # Button to Generate Password and display it
-        self.btn_GenPass = tk.Button(
+        self.btn_Gen_pass = tk.Button(
             self.frame_btn,
             text="Generate\nPassword",
-            command=self.genPass,
+            command=self.gen_pass,
             width=10,
             bd=3,
         ).grid(
@@ -245,7 +245,7 @@ class MainApplication(tk.Frame):
         )
 
         # Button to copy Password to clipboard
-        self.btn_Copy = tk.Button(
+        self.btn_copy = tk.Button(
             self.frame_btn,
             text="Copy to\nClipboard",
             command=self.copy_pass,
@@ -258,10 +258,10 @@ class MainApplication(tk.Frame):
         )
 
         # Button to save data to file
-        self.btn_Copy = tk.Button(
+        self.btn_copy = tk.Button(
             self.frame_btn,
             text="Save to\nPassword DB",
-            command=lambda: self.saveFile(),
+            command=lambda: self.save_file(),
             width=10,
             bd=3,
         ).grid(
@@ -271,76 +271,76 @@ class MainApplication(tk.Frame):
         )
 
     # Generate Password
-    def genPass(self):
+    def gen_pass(self):
 
         # Clear Entry Box
         self.clear_pass()
 
         # Get PW Length
-        passLength = int(self.scale_pl.get())
+        pass_Length = int(self.scale_pl.get())
 
         # Variable to hold the password
-        randChars = ""
+        rand_chars = ""
 
         try:
             # Generate Pass
-            if self.varUppercase.get() == 1:
-                randChars += string.ascii_uppercase
-            if self.varLowercase.get() == 1:
-                randChars += string.ascii_lowercase
-            if self.varNumbers.get() == 1:
-                randChars += string.digits
-            if self.varSymbols.get() == 1:
-                randChars += string.punctuation
+            if self.var_uppercase.get() == 1:
+                rand_chars += string.ascii_uppercase
+            if self.var_lowercase.get() == 1:
+                rand_chars += string.ascii_lowercase
+            if self.var_numbers.get() == 1:
+                rand_chars += string.digits
+            if self.var_symbols.get() == 1:
+                rand_chars += string.punctuation
 
             # If the easy to read radio button is set, remove ambiguous characters
             if self.var_rbtn.get() == 2:
-                randChars = sub(r"""[ILO0l"(),./:; <>[\]\\^_`'{|}~]""", "", randChars)
+                rand_chars = sub(r"""[ILO0l"(),./:; <>[\]\\^_`'{|}~]""", "", rand_chars)
 
             # Aggregate all random chars into a string
-            generatedPassword = "".join(
-                SystemRandom().choice(randChars) for x in range(passLength)
+            generated_Password = "".join(
+                SystemRandom().choice(rand_chars) for x in range(pass_Length)
             )
-        except IndexError:
+        except (IndexError):
             tk.messagebox.showinfo(
                 "ERROR",
                 "No options selected.",
             )
-
-        # Output password to the screen
-        self.entry_Pass.insert(0, generatedPassword)
+        else:
+            # Output password to the screen
+            self.entry_pass.insert(0, generated_Password)
 
     # Copy to clipboard
     def copy_pass(self):
         self.clipboard_clear()
-        self.clipboard_append(self.entry_Pass.get())
+        self.clipboard_append(self.entry_pass.get())
 
     # Send to Login page to Encrypt and Save
-    def saveFile(self):
+    def save_file(self):
         # If user is logged in, save file, if not send to login screen
-        # FileManager.FileStuff.fileStuff(self, self.entry_Pass.get())
+        # FileManager.FileStuff.fileStuff(self, self.entry_pass.get())
         # Login.Login.form(self)
         Login.main(self)
 
     # When a pre-set option is selected, set checkboxes accordingly
     def setCheckbutton(self, value):
         if value == 1:  # Easy to Say
-            self.varNumbers.set(0)
-            self.varSymbols.set(0)
-            self.varLowercase.set(1)
-            self.varUppercase.set(1)
+            self.var_numbers.set(0)
+            self.var_symbols.set(0)
+            self.var_lowercase.set(1)
+            self.var_uppercase.set(1)
             self.dynamic_cbox[2]["state"] = tk.DISABLED
             self.dynamic_cbox[3]["state"] = tk.DISABLED
         else:
-            self.varNumbers.set(1)
-            self.varSymbols.set(1)
-            self.varLowercase.set(1)
-            self.varUppercase.set(1)
+            self.var_numbers.set(1)
+            self.var_symbols.set(1)
+            self.var_lowercase.set(1)
+            self.var_uppercase.set(1)
             self.dynamic_cbox[2]["state"] = tk.NORMAL
             self.dynamic_cbox[3]["state"] = tk.NORMAL
 
     def clear_pass(self):
-        self.entry_Pass.delete(0, tk.END)
+        self.entry_pass.delete(0, tk.END)
 
     def custom_quit(self):
         answer = messagebox.askokcancel(
