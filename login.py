@@ -1,5 +1,5 @@
 import tkinter as tk
-import Registration
+import registration
 
 
 def main(parent):
@@ -65,7 +65,7 @@ class Login:
             text="Register",
             width=5,
             bd=3,
-            command=lambda: Registration.main(root),
+            command=lambda: registration.main(root),
         )
         self.btn_Register.pack(
             side=tk.RIGHT,

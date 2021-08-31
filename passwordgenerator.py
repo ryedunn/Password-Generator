@@ -4,7 +4,7 @@ from random import SystemRandom
 import string
 from re import sub
 from tk_ToolTip import CreateToolTip
-import Login
+import login
 
 
 class MenuBar(tk.Menu):
@@ -16,7 +16,7 @@ class MenuBar(tk.Menu):
         file_menu = tk.Menu(self, tearoff=False)
         self.add_cascade(label="File", underline=0, menu=file_menu)
 
-        file_menu.add_command(label="User Login", command=lambda: Login.main(self))
+        file_menu.add_command(label="User Login", command=lambda: login.main(self))
         file_menu.add_command(label="New User")
         open_file_menu = tk.Menu(self)
         open_file_menu.add_command(label="Recent")
@@ -320,7 +320,7 @@ class MainApplication(tk.Frame):
         # If user is logged in, save file, if not send to login screen
         # FileManager.FileStuff.fileStuff(self, self.entry_pass.get())
         # Login.Login.form(self)
-        Login.main(self)
+        login.main(self)
 
     # When a pre-set option is selected, set checkboxes accordingly
     def setCheckbutton(self, value):

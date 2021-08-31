@@ -46,12 +46,12 @@ class Register:
             pady=5,
         )
         # First Name Textbox
-        self.entry_FirstName = tk.Entry(
+        self.entry_firstName = tk.Entry(
             frame_user,
             textvariable=self.firstname,
             width=10,
         )
-        self.entry_FirstName.grid(
+        self.entry_firstName.grid(
             row=0,
             column=1,
             sticky=tk.W,
@@ -66,12 +66,12 @@ class Register:
             pady=5,
         )
         # Last Name Textbox
-        self.entry_LastName = tk.Entry(
+        self.entry_lastName = tk.Entry(
             frame_user,
             textvariable=self.lastname,
             width=10,
         )
-        self.entry_LastName.grid(
+        self.entry_lastName.grid(
             row=0,
             column=3,
             sticky=tk.W,
@@ -113,12 +113,12 @@ class Register:
             pady=5,
         )
         # Username Textbox
-        self.entry_Username = tk.Entry(
+        self.entry_username = tk.Entry(
             frame_acct,
             textvariable=self.username,
             width=10,
         )
-        self.entry_Username.grid(row=0, column=1)
+        self.entry_username.grid(row=0, column=1)
 
         # Password Label
         tk.Label(frame_acct, text="Password:").grid(
@@ -128,13 +128,13 @@ class Register:
             pady=5,
         )
         # Password Textbox
-        self.entry_Password = tk.Entry(
+        self.entry_password = tk.Entry(
             frame_acct,
             textvariable=self.password,
             show="*",
             width=10,
         )
-        self.entry_Password.grid(
+        self.entry_password.grid(
             row=1,
             column=1,
             padx=5,
@@ -148,13 +148,13 @@ class Register:
             pady=5,
         )
         # Verify Password Textbox
-        self.entry_VerifyPass = tk.Entry(
+        self.entry_verifypass = tk.Entry(
             frame_acct,
             textvariable=self.verifypass,
             show="*",
             width=10,
         )
-        self.entry_VerifyPass.grid(
+        self.entry_verifypass.grid(
             row=1,
             column=3,
             padx=5,
@@ -162,18 +162,18 @@ class Register:
         )
 
         # Button Frame
-        frame_Button = tk.Frame(frame_Main)
-        frame_Button.grid(pady=5)
+        frame_button = tk.Frame(frame_Main)
+        frame_button.grid(pady=5)
 
         # Register Button
-        btn_Register = tk.Button(
-            frame_Button,
+        btn_register = tk.Button(
+            frame_button,
             text="Register",
             width=10,
             bd=3,
             # command=register_user,
         )
-        btn_Register.grid(
+        btn_register.grid(
             row=0,
             column=0,
             padx=5,
@@ -181,14 +181,14 @@ class Register:
         )
 
         # Clear all Textboxes
-        btn_Clear = tk.Button(
-            frame_Button,
+        btn_clear = tk.Button(
+            frame_button,
             text="Clear",
             width=10,
             bd=3,
             command=self.clear_form,
         )
-        btn_Clear.grid(
+        btn_clear.grid(
             row=0,
             column=1,
             padx=5,
@@ -207,15 +207,15 @@ class Register:
         # file.write(password_info)
         # file.close()
 
-        # entry_Username.delete(0, tk.END)
-        # entry_Password.delete(0, tk.END)
+        # entry_username.delete(0, tk.END)
+        # entry_password.delete(0, tk.END)
         pass
 
     def clear_form(self):
-        self.entry_FirstName.delete(0, tk.END)
-        self.entry_LastName.delete(0, tk.END)
-        self.entry_Password.delete(0, tk.END)
-        self.entry_VerifyPass.delete(0, tk.END)
-        self.entry_Username.delete(0, tk.END)
+        self.entry_firstName.delete(0, tk.END)
+        self.entry_lastName.delete(0, tk.END)
+        self.entry_password.delete(0, tk.END)
+        self.entry_verifypass.delete(0, tk.END)
+        self.entry_username.delete(0, tk.END)
         self.entry_DOB.delete(0, tk.END)
         # e.DOB.set("mm/dd/yy")
